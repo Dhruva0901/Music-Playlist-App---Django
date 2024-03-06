@@ -1,0 +1,82 @@
+{% comment %} <p>
+    
+    <img alt="" src="{{object.image.url}}" height="200" width="200"/><br>
+    {{object.title}}<br>
+    {{object.artist}}<br>
+</p>  {% endcomment %}
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Music player
+  </title>
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="{% static './style.css' %}" rel="stylesheet"/>]
+ </head>
+ <body>
+  <!-- partial:index.partial.html -->
+  <html>
+   <head>
+    <meta charset="utf-8"/>
+    <title>
+    Music player
+    </title>
+   </head>
+   <body>
+
+    <a href="/list" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">My Songs</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">WELCOME {{user.first_name}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout">LOGOUT</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="contain">
+     <div class="container">
+      <div class="music-player">
+       
+       <div class="cover">
+        <img alt="" src="{{object.image.url}}"/>
+       </div>
+       <div class="titre">
+        <h3>
+         {{object.artist}}
+        </h3>
+        <h1>
+         {{object.title}}
+        </h1>
+       </div>
+       <center><a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}"><i class="fa fa-step-backward fa-2x"></i></a> &nbsp; &nbsp; &nbsp; <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }} {% endif %}"><i class="fa fa-step-forward fa-2x"></i></a></center>
+       <div class="lecteur">
+        <audio class="fc-media" style="width: 100%;">
+         <source src="{% if object.audio_file %}{{object.audio_file.url}} {% else %} {{object.audio_link}} {% endif %}" type="audio/mp3"/>
+        </audio>
+
+       </div>
+      
+      </div>
+     </div>
+    </div>
+   </body>
+  </html>
+  <!-- partial -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js">
+  </script>
+  <script src="{% static './script.js' %}">
+  </script>
+ </body>
+</html>
